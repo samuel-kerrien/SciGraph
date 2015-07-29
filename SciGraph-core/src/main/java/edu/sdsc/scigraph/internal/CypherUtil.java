@@ -49,8 +49,15 @@ import edu.sdsc.scigraph.owlapi.curies.CurieUtil;
 
 /***
  * A utility for more expressive Cypher queries.
- * 
  * <p>
+ * Provides:
+ * <ul>
+ * <li>Relationship type substitution:
+ *    <pre>(foo)-[:${relationship_type}]->(bar)</pre>
+ * </li>
+ * <li>Sub-property type entailment:
+ *    <pre>(foo)-[:superProperty!]->(bar)</pre>
+ * </li>
  */
 public class CypherUtil {
 
@@ -76,12 +83,25 @@ public class CypherUtil {
     this.curieUtil = curieUtil;
   }
 
+  /***
+   * Execute a cypher query with parameters
+   * 
+   * @param query the cypher query
+   * @param params query parameters
+   * @return The result of the query
+   */
   public Result execute(String query, Multimap<String, Object> params) {
     query = substituteRelationships(query, params);
-    query = resolveRelationships(query);
+    query = entailRelationships(query);
     return graphDb.execute(query, flattenMap(params));
   }
 
+  /***
+   * Execute a cypher query
+   * 
+   * @param query the cypher query
+   * @return The result of the query
+   */
   public Result execute(String query) {
     return execute(query, HashMultimap.<String, Object>create());
   }
@@ -131,7 +151,6 @@ public class CypherUtil {
   }
 
 
-
   Collection<String> resolveTypes(String types, boolean entail) {
     Collection<String> resolvedTypes = transform(newHashSet(Splitter.on('|').split(types)), new Function<String, String>() {
       @Override
@@ -146,7 +165,7 @@ public class CypherUtil {
     }
   }
 
-  String resolveRelationships(String cypher) {
+  String entailRelationships(String cypher) {
     Matcher m = ENTAILMENT_PATTERN.matcher(cypher);
     StringBuffer buffer = new StringBuffer();
     while (m.find()) {

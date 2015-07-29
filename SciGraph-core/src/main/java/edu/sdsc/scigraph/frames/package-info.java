@@ -13,26 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.sdsc.scigraph.owlapi.loader;
-
-import org.semanticweb.owlapi.model.OWLObject;
-
-class OWLCompositeObject {
-
-  private final String ontology;
-  private final OWLObject object;
-
-  OWLCompositeObject(String ontology, OWLObject object) {
-    this.ontology = ontology;
-    this.object = object;
-  }
-
-  public String getOntology() {
-    return ontology;
-  }
-
-  public OWLObject getObject() {
-    return object;
-  }
-
-}
+/**
+ * This package is a relic from using <a href="https://github.com/tinkerpop/frames/wiki">
+ * TinkerPop Frames</a>. It could be refactored into something leaner.
+ */
+package edu.sdsc.scigraph.frames;

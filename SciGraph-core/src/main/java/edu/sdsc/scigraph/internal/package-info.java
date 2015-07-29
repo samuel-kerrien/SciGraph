@@ -13,26 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.sdsc.scigraph.owlapi.loader;
-
-import org.semanticweb.owlapi.model.OWLObject;
-
-class OWLCompositeObject {
-
-  private final String ontology;
-  private final OWLObject object;
-
-  OWLCompositeObject(String ontology, OWLObject object) {
-    this.ontology = ontology;
-    this.object = object;
-  }
-
-  public String getOntology() {
-    return ontology;
-  }
-
-  public OWLObject getObject() {
-    return object;
-  }
-
-}
+/**
+ * Internal APIs that may not be ready for prime time.
+ */
+package edu.sdsc.scigraph.internal;

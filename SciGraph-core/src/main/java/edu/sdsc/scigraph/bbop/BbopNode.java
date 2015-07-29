@@ -13,26 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.sdsc.scigraph.owlapi.loader;
+package edu.sdsc.scigraph.bbop;
 
-import org.semanticweb.owlapi.model.OWLObject;
+import java.util.HashMap;
+import java.util.Map;
 
-class OWLCompositeObject {
+public class BbopNode {
+  String id;
+  String lbl;
+  Map<String, Object> meta = new HashMap<>();
 
-  private final String ontology;
-  private final OWLObject object;
-
-  OWLCompositeObject(String ontology, OWLObject object) {
-    this.ontology = ontology;
-    this.object = object;
+  public String getId() {
+    return id;
   }
 
-  public String getOntology() {
-    return ontology;
+  public void setId(String id) {
+    this.id = id;
   }
 
-  public OWLObject getObject() {
-    return object;
+  public String getLbl() {
+    return lbl;
+  }
+
+  public void setLbl(String lbl) {
+    this.lbl = lbl;
+  }
+
+  public Map<String, Object> getMeta() {
+    return meta;
+  }
+
+  public void setMeta(Map<String, Object> meta) {
+    this.meta = meta;
   }
 
 }

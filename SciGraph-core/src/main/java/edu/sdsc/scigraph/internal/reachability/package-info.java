@@ -13,26 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.sdsc.scigraph.owlapi.loader;
-
-import org.semanticweb.owlapi.model.OWLObject;
-
-class OWLCompositeObject {
-
-  private final String ontology;
-  private final OWLObject object;
-
-  OWLCompositeObject(String ontology, OWLObject object) {
-    this.ontology = ontology;
-    this.object = object;
-  }
-
-  public String getOntology() {
-    return ontology;
-  }
-
-  public OWLObject getObject() {
-    return object;
-  }
-
-}
+/**
+ * A Neo4j implementation of the <a href="http://www.vldb.org/pvldb/vol6/p1978-jin.pdf">
+ * "Simple, Fast, and Scalable Reachability Oracle"</a>
+ */
+package edu.sdsc.scigraph.internal.reachability;

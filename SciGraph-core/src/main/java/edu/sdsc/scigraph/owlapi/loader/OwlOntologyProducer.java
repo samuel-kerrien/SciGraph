@@ -72,16 +72,18 @@ final class OwlOntologyProducer implements Callable<Void>{
     logger.info("Queueing axioms for: " + ontologyConfig);
     long objectCount = 0;
     for (OWLOntology ontology: manager.getOntologies()) {
+      String ontologyIri = OwlApiUtils.getIri(ontology);
+
       for (OWLObject object: ontology.getNestedClassExpressions()) {
-        queue.put(new OWLCompositeObject(ontology, object));
+        queue.put(new OWLCompositeObject(ontologyIri, object));
         objectCount++;
       }
       for (OWLObject object: ontology.getClassesInSignature(false)) {
-        queue.put(new OWLCompositeObject(ontology, object));
+        queue.put(new OWLCompositeObject(ontologyIri, object));
         objectCount++;
       }
       for (OWLObject object: ontology.getAxioms()) { // only in the current ontology
-        queue.put(new OWLCompositeObject(ontology, object));
+        queue.put(new OWLCompositeObject(ontologyIri, object));
         objectCount++;
       }
     }
@@ -95,15 +97,15 @@ final class OwlOntologyProducer implements Callable<Void>{
     for (OWLImportsDeclaration importDeclaration: ontology.getImportsDeclarations()) {
       OWLOntology childOnt = manager.getImportedOntology(importDeclaration);
       if (null == childOnt) {
-        // TODO: Why is childOnt sometimes null?
+        // TODO: Why is childOnt sometimes null (when importing rdf)?
         continue;
       }
       long child = graph.createNode(OwlApiUtils.getIri(childOnt));
       graph.addLabel(parent, OwlLabels.OWL_ONTOLOGY);
-      graph.createRelationship(child, parent, OwlRelationships.RDFS_IS_DEFINED_BY);
-      if (ontology.equals(childOnt)) {
+      if (graph.getRelationship(child, parent, OwlRelationships.RDFS_IS_DEFINED_BY).isPresent()) {
         continue;
       }
+      graph.createRelationship(child, parent, OwlRelationships.RDFS_IS_DEFINED_BY);
       addOntologyStructure(manager, childOnt);
     }
   }

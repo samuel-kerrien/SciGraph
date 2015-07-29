@@ -76,7 +76,7 @@ public class CypherUtilTest extends GraphTestBase{
 
   @Test
   public void jsonPropertiesAreNotRegexed() {
-    String query = util.resolveRelationships("(a {foo: 'bar'})-[:fizz*]-(end)");
+    String query = util.entailRelationships("(a {foo: 'bar'})-[:fizz*]-(end)");
     assertThat(query, is("(a {foo: 'bar'})-[:`fizz`*]-(end)"));
   }
 
@@ -100,7 +100,7 @@ public class CypherUtilTest extends GraphTestBase{
 
   @Test
   public void replaceCurieRelationship() {
-    String actual = util.resolveRelationships("(start)-[:FOO:foo]-(end)");
+    String actual = util.entailRelationships("(start)-[:FOO:foo]-(end)");
     assertThat(actual, is("(start)-[:`http://x.org/#foo`]-(end)"));
   }
 
@@ -116,13 +116,13 @@ public class CypherUtilTest extends GraphTestBase{
 
   @Test
   public void entailmentRegex() {
-    String result = util.resolveRelationships("MATCH (n)-[:http://x.org/#foo!]-(n2) RETURN n");
-    assertThat(result, is("MATCH (n)-[:`http://x.org/#fizz`|`http://x.org/#foo`|`http://x.org/#fizz_equiv`]-(n2) RETURN n"));
+    String result = util.entailRelationships("MATCH (n)-[:foo!]-(n2) RETURN n");
+    assertThat(result, is("MATCH (n)-[:`foo`]-(n2) RETURN n"));
   }
 
   @Test
   public void curiesAreEntailed() {
-    String result = util.resolveRelationships("MATCH (n)-[:FOO:foo!]-(n2) RETURN n");
+    String result = util.entailRelationships("MATCH (n)-[:FOO:foo!]-(n2) RETURN n");
     assertThat(result, is("MATCH (n)-[:`http://x.org/#fizz`|`http://x.org/#foo`|`http://x.org/#fizz_equiv`]-(n2) RETURN n"));
   }
 
