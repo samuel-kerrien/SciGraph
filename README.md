@@ -19,6 +19,7 @@ Goals:
 * Efficient, parallel ontology ingestion
 * Provide basic "vocabulary" support
 * Stay domain agnostic
+* test
 
 Non-goals:
 * Create ontologies based on the graph
