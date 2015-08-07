@@ -4,7 +4,6 @@ SciGraph
 [![Coverage Status](https://coveralls.io/repos/SciGraph/SciGraph/badge.svg)](https://coveralls.io/r/SciGraph/SciGraph)
 [![Stories in Ready](https://badge.waffle.io/SciGraph/SciGraph.svg?label=ready&title=Ready)](http://waffle.io/SciGraph/SciGraph)
  
- 
 Represent ontologies and ontology-encoded knowledge in a Neo4j graph.
 
 Motivation
