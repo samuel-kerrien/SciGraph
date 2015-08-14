@@ -6,7 +6,7 @@ SciGraph
     
 Represent ontologies and ontology-encoded knowledge in a Neo4j graph.
  
-XXX Motivation
+YXXX Motivation
 ----------
 SciGraph aims to represent ontologies and data described using ontologies as a Neo4j graph. SciGraph
 reads ontologies with [owlapi](http://owlapi.sourceforge.net/) and ingests
