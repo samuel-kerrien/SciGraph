@@ -5,7 +5,7 @@ SciGraph
 [![Stories in Ready](https://badge.waffle.io/SciGraph/SciGraph.svg?label=ready&title=Ready)](http://waffle.io/SciGraph/SciGraph)
     
 Represent ontologies and ontology-encoded knowledge in a Neo4j graph.
-
+ 
 Motivation
 ----------
 SciGraph aims to represent ontologies and data described using ontologies as a Neo4j graph. SciGraph
